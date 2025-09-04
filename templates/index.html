@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brutalist Image Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="top-header">
+        <p class="header-text">[CLASSIFICATION ENGINE v2.1]</p>
+        <p class="header-logo">[BRUTALIST-AI]</p>
+    </div>
+    <div class="container">
+        <header>
+            <h1>BOVINE BREED IDENTIFIER</h1>
+            <p class="subtitle">// EFFICIENTNETV2-S // 90.3% ACCURACY //</p>
+        </header>
+
+        <main>
+            <div class="upload-area">
+                <input type="file" id="file-input" accept="image/*" hidden>
+                <button id="upload-button">SELECT IMAGE</button>
+                <div id="image-preview-container" class="hidden">
+                    <img id="image-preview" src="#" alt="Image preview" />
+                </div>
+            </div>
+
+            <div id="result-container" class="hidden">
+                <h2>ANALYSIS RESULT:</h2>
+                <p id="result-text"></p>
+            </div>
+
+            <div id="loader" class="hidden">
+                <p>ANALYZING...</p>
+            </div>
+
+            <div id="error-container" class="hidden">
+                <p id="error-text"></p>
+            </div>
+
+            <div class="grid-container">
+                <div class="grid-item" id="system-status">
+                    <h2>SYSTEM STATUS</h2>
+                    <p>MODEL: EFFNETV2-S_BEST.KERAS</p>
+                    <p>STATUS: <span class="status-ok">OPERATIONAL</span></p>
+                    <p>LAST CALIBRATION: 2025-09-05</p>
+                    <p>UPLOADS PROCESSED: <span id="upload-counter">0</span></p>
+                </div>
+                <div class="grid-item" id="detection-log-container">
+                    <h2>DETECTION LOG</h2>
+                    <div id="detection-log">
+                        <p class="log-placeholder">// WAITING FOR INPUT //</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 // NO RIGHTS RESERVED</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
