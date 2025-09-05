@@ -41,7 +41,16 @@ if not os.path.exists("/root/.kaggle/kaggle.json"):
     shutil.copyfile(src, dest_file)
     
 # Download and unzip the dataset
-!kaggle datasets download -d lukex9442/indian-bovine-breeds -p {DATA_DIR} --unzip
+import subprocess
+DATA_DIR = "datasets"  # or wherever you want
+
+# Run Kaggle API command
+subprocess.run([
+    "kaggle", "datasets", "download",
+    "-d", "lukex9442/indian-bovine-breeds",
+    "-p", DATA_DIR,
+    "--unzip"
+])
 
 # 2) Find the directory that contains class subfolders
 def find_image_dir(base):
@@ -205,5 +214,6 @@ print(f"Final validation accuracy: {val_acc*100:.2f}%")
 # 12) Save final
 best.save(os.path.join(MODEL_DIR, "effnetv2s_final.keras"))
 print("Saved:", os.path.join(MODEL_DIR, "effnetv2s_final.keras"))
+
 
 
