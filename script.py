@@ -9,7 +9,7 @@
 # 0) Optional: pin TF for reproducibility (comment out if Colab already has recent TF)
 # !pip install -q tensorflow==2.12.0
 
-import os, math, pathlib, numpy as np, tensorflow as tf
+import os,shutil, math, pathlib, numpy as np, tensorflow as tf
 from sklearn.utils import class_weight
 
 print(tf.__version__)
@@ -27,9 +27,11 @@ if not os.path.exists("/root/.kaggle/kaggle.json"):
     print("Please upload kaggle.json")
     from google.colab import files
     uploaded = files.upload()
-    !mkdir -p ~/.kaggle
-    !cp kaggle.json ~/.kaggle/
-    !chmod 600 ~/.kaggle/kaggle.json
+    # Create .kaggle directory if it doesn’t exist
+    os.makedirs(dest_dir, exist_ok=True)
+
+    # Copy kaggle.json into .kaggle folder
+    shutil.copyfile(src, dest)
 
 # Download and unzip the dataset
 !kaggle datasets download -d lukex9442/indian-bovine-breeds -p {DATA_DIR} --unzip
@@ -196,3 +198,4 @@ print(f"Final validation accuracy: {val_acc*100:.2f}%")
 # 12) Save final
 best.save(os.path.join(MODEL_DIR, "effnetv2s_final.keras"))
 print("Saved:", os.path.join(MODEL_DIR, "effnetv2s_final.keras"))
+
