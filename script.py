@@ -27,12 +27,19 @@ if not os.path.exists("/root/.kaggle/kaggle.json"):
     print("Please upload kaggle.json")
     from google.colab import files
     uploaded = files.upload()
-    # Create .kaggle directory if it doesn’t exist
+    # Source file (assuming kaggle.json is in the same folder as script.py)
+    src = "kaggle.json"
+
+    # Destination folder: C:\Users\<YourName>\.kaggle
+    dest_dir = os.path.join(os.path.expanduser("~"), ".kaggle")
+    dest_file = os.path.join(dest_dir, "kaggle.json")
+
+    # Create the .kaggle folder if it doesn't exist
     os.makedirs(dest_dir, exist_ok=True)
 
-    # Copy kaggle.json into .kaggle folder
-    shutil.copyfile(src, dest)
-
+    # Copy kaggle.json into the .kaggle folder
+    shutil.copyfile(src, dest_file)
+    
 # Download and unzip the dataset
 !kaggle datasets download -d lukex9442/indian-bovine-breeds -p {DATA_DIR} --unzip
 
@@ -198,4 +205,5 @@ print(f"Final validation accuracy: {val_acc*100:.2f}%")
 # 12) Save final
 best.save(os.path.join(MODEL_DIR, "effnetv2s_final.keras"))
 print("Saved:", os.path.join(MODEL_DIR, "effnetv2s_final.keras"))
+
 
